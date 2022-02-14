@@ -1,0 +1,1666 @@
+---=
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+
+```
+
+
+```{r}
+
+library(tidyverse)
+
+
+install.packages(c("nycflights13", "gapminder", "Lahman"))
+
+1 + 2
+
+
+library(ggplot2)
+
+
+```
+
+
+```{r}
+
+mpg
+is.data.frame(mpg)
+
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy))
+
+```
+
+
+### reusable template
+
+```{r}
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+
+
+```
+
+
+```{r}
+
+
+glimpse(mpg)
+
+?mpg
+
+
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = class, y = drv))
+
+
+
+
+```
+
+
+```{r}
+
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+
+
+
+
+```
+
+
+
+
+```{r}
+
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+
+
+
+```
+
+```{r}
+
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+
+
+
+
+
+```
+
+
+
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+
+```
+
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "black", 
+             size = 2, shape = 9)
+
+
+
+```
+
+
+
+```{r}
+
+glimpse(mpg)
+
+
+```
+
+
+
+```{r}
+
+ggplot(data = mpg) +
+  geom_bar(mapping = aes(x = class, fill = class))
+
+
+?geom_point
+
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = displ < 5))
+
+
+ggplot(mpg, aes(x = displ, y = hwy, color = displ < 5)) +
+  geom_point()
+
+```
+
+
+```{r}
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+
+
+
+
+
+
+
+```
+
+
+
+```{r}
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = drv, y = cyl))
+
+
+```
+
+
+
+
+```{r}
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl)
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+
+
+
+
+```
+
+
+
+```{r}
+
+?mpg
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(. ~ year)
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ cyl)
+
+
+
+```
+
+
+
+
+
+```{r}
+?mpg
+
+ggplot(mpg, aes(x = drv, y = cyl)) +
+  geom_point() + facet_grid(drv ~ cyl)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl)
+
+
+```
+
+######## Facet ya da COLOR in Aes kullanmak/ Her ikiside ek deisgkenler eklemek icin.
+
+
+```{r}
+
+
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~ class, nrow = 2)
+
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point()
+
+```
+
+
+```{r}
+
+?facet_wrap
+
+?facet_grid
+
+
+
+```
+
+
+#### Geometric Obejcts
+
+```{r}
+
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point()
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_smooth()
+
+ggplot(mpg, aes(x = displ, y = hwy, linetype = drv, color = drv)) +
+  geom_smooth() +
+  geom_point()
+
+
+
+
+```
+
+
+
+```{r}
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_smooth()
+
+ggplot(mpg, aes(x = displ, y = hwy, group = drv)) +
+  geom_smooth()
+
+ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
+  geom_smooth(show.legend = FALSE)
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_smooth() +
+  geom_point()
+
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class)) + 
+  geom_smooth()
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class)) + 
+  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE)
+
+
+
+
+
+```
+
+#### Exercise
+
+```{r}
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+
+
+ggplot(mpg, aes(x = displ, y = hwy, size = 0.1)) +
+  geom_smooth() +
+  geom_point(show.legend = FALSE)
+
+ggplot(mpg, aes(x = displ, y = hwy, size = 1)) +
+  geom_smooth(aes(group = drv)) +
+  geom_point(se = FALSE)
+
+ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
+  geom_smooth(aes(group = drv)) +
+  geom_point(se = FALSE)
+  
+#### Bu nasil olacak?
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = drv)) +
+  geom_smooth()
+
+ggplot(mpg, aes(x = displ, y = hwy, linetype = drv)) +
+  geom_point(aes(color = drv)) +
+  geom_smooth(show.legend = FALSE)
+  
+
+```
+
+
+#### Statistical Transformations
+
+
+```{r}
+
+
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut))
+
+demo <- tribble(
+  ~cut,         ~freq,
+  "Fair",       1610,
+  "Good",       4906,
+  "Very Good",  12082,
+  "Premium",    13791,
+  "Ideal",      21551
+)
+
+ggplot(data = demo) +
+  geom_bar(mapping = aes(x = cut, y = freq), stat = "identity")
+
+```
+
+
+
+
+
+```{r}
+
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = stat(prop), group = 1))
+
+
+
+ggplot(data = diamonds) + 
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+
+
+?stat_summary
+```
+
+
+
+
+```{r}
+
+?geom_bar
+
+?geom_col
+
+?stat_smooth
+
+
+#### BURADA NE ALAKA GROUP
+
+diamonds
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = after_stat(prop)))
+
+
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = color, y = after_stat(prop), group = 1))
+
+
+
+
+```
+
+
+##### Position Adjustments
+
+```{r}
+
+ggplot(diamonds, aes(x = cut, fill = cut)) +
+  geom_bar()
+
+ggplot(diamonds, aes(x = cut, fill = clarity)) +
+  geom_bar()
+
+#### If you don’t want a stacked bar chart, you can use one of three other options:
+#### "identity", "dodge" or "fill"
+
+ggplot(diamonds, aes(x = cut, fill = clarity)) +
+  geom_bar(alpha = 1/6, position = "identity")
+
+ggplot(diamonds, aes(x = cut, colour = clarity)) +
+  geom_bar(fill = NA, position = "identity")
+
+ggplot(diamonds, aes(x = cut, fill = clarity)) +
+  geom_bar(position = "fill")
+
+
+ggplot(diamonds, aes(x = cut, fill = clarity)) +
+  geom_bar(position = "dodge")
+
+# the problem of overplotting
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(position = "jitter")
+
+
+
+```
+
+#### Exercises
+
+```{r}
+
+ggplot(mpg, aes(x = cty, y = hwy)) + 
+  geom_jitter()
+
+ggplot(mpg, aes(x = cty, y = hwy)) + 
+  geom_count()
+
+
+?geom_boxplot()
+
+
+ggplot(mpg, aes(x = hwy)) + 
+  geom_boxplot() +
+  coord_flip()
+
+
+
+```
+
+
+# 3.9 Coordinate systems
+
+```{r}
+
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot() +
+  coord_flip()
+
+
+nz <- map_data("nz")
+
+
+ggplot(nz, aes(long, lat, group = group)) +
+  geom_polygon(fill = "white", colour = "black")
+
+ggplot(nz, aes(long, lat, group = group)) +
+  geom_polygon(fill = "white", colour = "black") +
+  coord_quickmap()
+
+```
+
+
+
+
+```{r}
+
+bar <- ggplot(diamonds, aes(x = cut, fill = cut)) +
+  geom_bar(show.legend = FALSE, width = 1) +
+  theme(aspect.ratio = 1) +
+  labs(x = "X ekseni", y = NULL)
+
+bar
+
+bar + coord_flip()
+bar + coord_polar()
+
+```
+
+
+# Exercises
+
+```{r}
+
+ggplot(diamonds, aes(x = cut, fill = clarity)) +
+  geom_bar() +
+  coord_polar()
+  
+?labs()
+
+glimpse(mpg)
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_point() + 
+  geom_abline() +
+  coord_fixed()
+
+
+
+
+```
+
+
+#Template
+
+
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  ) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION>
+
+
+
+```{r}
+
+diamonds
+
+stat_count(aes(diamonds$cut))
+
+ggplot(diamonds, aes(x = cut)) +
+  stat_count()
+
+stat_count(diamonds$cut)
+
+
+```
+
+
+Workflow:Basics
+
+
+```{r}
+
+this_is_a_really_long_name <- 2.5
+
+r_rocks <- 2 ^ 3
+
+r_r
+
+seq(1, 10)
+
+
+x <- "hello world"
+
+x
+
+
+library(tidyverse)
+library(ggplot2)
+
+
+ggplot(mpg, aes(x= displ, y= hwy)) +
+  geom_point() +
+  geom_smooth(se = FALSE)
+
+filter(diamonds, carat > 3)
+
+
+
+
+```
+
+
+
+#### Data Transformation
+
+
+```{r}
+
+install.packages("nycflights13")
+
+library(nycflights13)
+library(tidyverse)
+
+flights
+
+nycflights13::flights
+
+nycflights13::flights
+
+view(flights)
+
+# int stands for integers.
+
+# dbl stands for doubles, or real numbers.
+
+# chr stands for character vectors, or strings.
+
+# dttm stands for date-times (a date + a time).
+
+```
+
+#### 
+
+Pick observations by their values (filter()).
+
+Reorder the rows (arrange()).
+
+Pick variables by their names (select()).
+
+Create new variables with functions of existing variables (mutate()).
+
+Collapse many values down to a single summary (summarise()).
+
+These can all be used in conjunction with group_by()
+
+
+```{r}
+
+
+filter(flights, month == 1, day == 1)
+
+jan1 <- filter(flights, month == 1, day == 1)
+
+(jan1 <- filter(flights, month == 1, day == 1))
+
+
+
+
+```
+
+
+R provides the standard suite: >, >=, <, <=, != (not equal), and == (equal).
+
+
+```{r}
+
+filter(flights, dep_time >= 500)
+
+
+
+
+
+
+```
+
+
+
+boolean operations
+
+#------ & is “and”, | is “or”, and ! is “not”.
+
+
+```{r}
+
+filter(flights, month == 11 | month == 12)
+#or
+filter(flights, month %in% c(11,12))
+
+#### De Morgan’s law: 
+ # !(x & y) is the same as !x | !y, and 
+  # !(x | y) is the same as !x & !y.
+
+filter(flights, !(arr_delay > 120 | dep_delay > 120))
+filter(flights, arr_delay <= 120, dep_delay <= 120)
+
+
+
+filter(flights, month == 12, arr_time > 1000)
+
+```
+
+
+
+##### 5.2.3 Missing values
+
+
+```{r}
+
+
+x <-NA
+
+is.na(x)
+
+df <- tibble(x = c(1, NA, 6))
+
+df
+filter(df, x > 1)
+
+
+filter(df, is.na(x) | x > 1)
+
+
+
+```
+
+
+#### Exercises
+```{r}
+
+filter(flights, arr_delay >= 120)
+
+filter(flights, dest == "HOU")
+
+flights
+
+filter(flights, month %in% 7:9)
+
+
+filter(flights, arr_delay > 120 & dep_delay <= 0)
+
+
+
+filter(flights, arr_delay >= 60 & air_time > 30)
+
+
+
+filter(flights, dep_delay >= 60 & (dep_delay - arr_delay > 30))
+
+
+
+filter(flights, dep_time >= 2400 | dep_time <= 600)
+
+
+filter(flights, between(dep_time, 601, 2359))
+
+sum(is.na(flights$dep_time))
+
+
+
+```
+
+
+
+#### 5.3 Arrange rows with arrange()
+
+```{r}
+
+
+arrange(flights, year, month, day)
+
+arrange(flights, desc(is.na(dep_time)))
+
+
+arrange(flights, desc(arr_delay))
+
+
+arrange(flights, desc(distance))
+
+
+flights %>%
+  arrange(air_time) %>%
+  select(carrier, flight, air_time)
+
+
+
+```
+
+
+### 5.4 Select columns with select()
+
+```{r}
+
+select(flights, year, month, day)
+
+
+select(flights, contains("ijk"))
+
+
+rename(flights, tail_num = tailnum)
+
+
+
+```
+
+
+
+
+```{r}
+
+library(nycflights13)
+
+select(flights, dep_time, dep_delay, air_time, arr_delay)
+
+select(flights, starts_with("dep"), starts_with("arr"))
+
+select(flights, arr_delay, arr_delay)
+
+vars <- c("year", "month", "day", "dep_delay", "arr_delay")
+
+vars
+
+
+select(flights, contains("TIME"))
+
+
+
+# any_of ---- enables to use character names within it
+
+```
+
+
+#### Add new variables with mutate()
+```{r}
+
+flights_sml <- select(flights, year, ends_with("delay"), distance, air_time) 
+
+view(flights_sml)
+
+
+mutate(flights_sml, gain = dep_delay - arr_delay,
+       speed = distance / air_time * 60)
+
+
+
+mutate(flights_sml, gain = dep_delay - arr_delay,
+       hours = air_time / 60,
+       gain_per_hour = gain / hours)
+
+
+
+```
+
+
+#### log(), log2(), log10(). Logarithms are an incredibly useful transformation for dealing with data that ranges across multiple orders of magnitude. They also convert multiplicative relationships to additive, a feature we’ll come back to in modelling. I recommend using log2() because it’s easy to interpret: a difference of 1 on the log scale corresponds to doubling on the original scale and a difference of -1 corresponds to halving.
+
+```{r}
+
+(x <- 1:10) 
+
+lag(x)
+
+lead(x)
+
+cumsum(x)
+
+cummean(x)
+
+cummax(x)
+
+cummin(x)
+
+
+# Ranking: there are a number of ranking functions, but you should start with min_rank(). It does the most usual type of ranking (e.g. 1st, 2nd, 2nd, 4th). The default gives smallest values the small ranks; use desc(x) to give the largest values the smallest ranks.
+
+min_rank(x)
+
+min_rank(desc(x))
+
+#Modular arithmetic: %/% (integer division) and %% (remainder), where x == y * (x %/% y) + (x %% y). Modular arithmetic is a handy tool because it allows you to break integers up into pieces. For example, in the flights dataset, you can compute hour and minute from dep_time with:
+
+transmute(flights, dep_time, hour = dep_time %/% 100, minute = dep_time %% 100)
+
+
+```
+
+Exercises ---- modular arithmetic 
+
+
+```{r}
+myflights <- select(flights, dep_time, sched_dep_time)
+
+select(flights,dep_time, sched_dep_time)
+
+myflights
+
+mutate(myflights, dep_time = (dep_time %/% 100) * 60 + (dep_time %% 100),
+       sched_dep_time = (sched_dep_time %/% 100) * 60 + (sched_dep_time %/% 100))
+
+
+myflights2 <- select(flights, air_time, arr_time, dep_time)
+
+mutate(myflights2, fark = arr_time - dep_time)
+
+view(myflights2)
+
+flights %>% 
+  mutate(dep_time = (dep_time %/% 100) * 60 + (dep_time %% 100),
+         sched_dep_time = (sched_dep_time %/% 100) * 60 + (sched_dep_time %% 100),
+         arr_time = (arr_time %/% 100) * 60 + (arr_time %% 100),
+         sched_arr_time = (sched_arr_time %/% 100) * 60 + (sched_arr_time %% 100)) %>%
+  transmute((arr_time - dep_time) %% (60*24) - air_time)
+
+
+
+select(flights, dep_time, sched_dep_time, dep_delay)
+
+select(flights, sched_dep_time + dep_delay == dep_time)
+
+view(flights)
+
+
+
+flights %>% 
+  mutate(dep_time = (dep_time %/% 100) * 60 + (dep_time %% 100),
+         sched_dep_time = (sched_dep_time %/% 100) * 60 + (sched_dep_time %% 100),
+         arr_time = (arr_time %/% 100) * 60 + (arr_time %% 100),
+         sched_arr_time = (sched_arr_time %/% 100) * 60 + (sched_arr_time %% 100))
+
+
+
+
+filter(flights, min_rank(desc(dep_delay)) <= 10)
+
+
+
+
+```
+
+
+
+### 5.6 Grouped summaries with summarise()
+
+
+```{r}
+
+library(nycflights13)
+
+summarise(flights, delay = mean(dep_delay, na.rm = TRUE))
+
+
+
+by_day <- group_by(flights, year, month, day)
+
+by_day
+
+summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
+
+
+#### we want to explore the relationship between the distance and average delay for each location
+
+
+by_dest <- group_by(flights, dest)
+
+delay <- summarise(by_dest, count = n(), dist = mean(distance, na.rm = TRUE), delay = mean(arr_delay, na.rm = TRUE))
+
+delay
+
+delay <- filter(delay, count > 20, dest != "HNL")
+
+
+ggplot(delay, aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1 / 3) +
+  geom_smooth(se = FALSE)
+
+### There are three steps to prepare this data:
+
+# 1- Group flights by destination.
+
+# 2- Summarise to compute distance, average delay, and number of flights.
+
+# 3- Filter to remove noisy points and Honolulu airport, which is almost twice as far away as the next closest airport.
+
+
+##### As suggested by this reading, a good way to pronounce %>% when reading code is “then”
+
+delays <- flights %>%
+  group_by(dest)  %>% 
+  summarise(count = n(), dist = mean(distance, na.rm = TRUE), delay = mean(arr_delay, na.rm = TRUE))  %>% 
+  filter(count > 20, dest != "HNL")
+
+delays
+
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(mean = mean(dep_delay, na.rm = TRUE))
+
+not_cancelled <- flights %>% 
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+
+delays <- not_cancelled %>% 
+  group_by(tailnum) %>% 
+  summarise(
+    delay = mean(arr_delay)
+  )
+
+ggplot(delays, aes(x = delay)) +
+  geom_freqpoly(binwidth = 10)
+
+delays <- not_cancelled %>% 
+  group_by(tailnum) %>% 
+  summarise(
+    delay = mean(arr_delay, na.rm = TRUE),
+    n = n()
+  )
+
+ggplot(data = delays, mapping = aes(x = n, y = delay)) + 
+  geom_point(alpha = 1/10)
+
+#### When looking at this sort of plot, it’s often useful to filter out the groups with the smallest numbers of observations, so you can see more of the pattern and less of the extreme variation in the smallest groups.
+
+delays %>% 
+  filter(n > 25) %>% 
+  ggplot(mapping = aes(x = n, y = delay)) + 
+    geom_point(alpha = 1/10)
+
+```
+
+
+
+
+```{r}
+
+batting <- as_tibble(Lahman::Batting)
+
+batters <- batting %>% 
+  group_by(playerID) %>% 
+  summarise(ba = sum(H, na.rm = TRUE) / sum(AB, na.rm = TRUE),
+            ab = sum(AB, na.rm = TRUE))
+
+batters %>% 
+  filter(ab > 100) %>% 
+  ggplot(mapping = aes(x = ab, y = ba)) +
+    geom_point() + 
+    geom_smooth(se = FALSE)
+
+
+
+```
+
+
+
+
+5.6.4 Useful summary functions
+
+```{r}
+
+
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(avg_delay1 = mean(arr_delay, na.rm = TRUE),
+            avg_delay2 = mean(arr_delay[arr_delay > 0], na.rm = TRUE))
+
+
+library(nycflights13)
+
+view(flights)
+
+### Measures of rank: min(x), quantile(x, 0.25), max(x)
+
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(first = min(dep_time, na.rm = TRUE), max(dep_time, na.rm = TRUE))
+
+#### Measures of position: first(x), nth(x, 2), last(x)
+
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(
+    first_dep = first(dep_time), 
+    last_dep = last(dep_time))
+  
+
+flights %>% 
+  sum(!is.na(dep_delay))
+  
+sum(!is.na(flights$dep_delay))
+
+n_distinct(flights$dep_delay)
+
+#To count the number of distinct (unique) values, use n_distinct(x)
+
+# Which destinations have the most carriers?
+
+
+flights %>% 
+  group_by(dest) %>% 
+  summarise(carriers = n_distinct(carrier)) %>% 
+  arrange(desc(carriers))
+
+flights %>% 
+  count(dest)
+
+flights %>% 
+  count(tailnum, wt = distance)
+
+#### wt 'nin anlamı ne burada
+
+
+
+# How many flights left before 5am? (these usually indicate delayed
+# flights from the previous day)
+
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(n_early = sum(dep_time < 500, na.rm = TRUE))
+
+
+# What proportion of flights are delayed by more than an hour?
+
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(delay_hour = mean(arr_delay > 60, na.rm = TRUE))
+
+
+```
+
+
+
+#### 5.6.5 Grouping by multiple variables
+
+
+```{r}
+
+
+daily <- group_by(flights, year, month, day)
+
+(per_day <- summarise(daily, flights = n()))
+
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(ucaklar = n())
+
+flights %>% 
+  group_by(year, month) %>% 
+  summarise(monthly = sum(month, na.rm = TRUE))
+
+
+
+(per_month <- summarise(per_day, flights = sum(flights)))
+
+flights %>% 
+  group_by(year) %>% 
+  summarise(yearly = n())
+
+
+```
+
+
+
+5.6.7 Exercises
+
+```{r}
+
+flights %>% 
+  group_by(tailnum) %>%
+  filter(arr_delay == 15 | arr_delay == -15) %>% 
+  summarise(arr_delay, n())
+
+
+not_cancelled <- flights %>%
+  filter(!is.na(air_time))
+
+
+not_cancelled %>%
+  group_by(tailnum) %>%
+  mutate(
+    count = n(),
+    median_arr_delay = median(arr_delay),
+    median_dep_delay = median(dep_delay)) %>%
+  filter(count > 30, tailnum == "N479AA") %>%
+  arrange(median_arr_delay, median_dep_delay)
+
+
+
+flights %>%
+  filter(!is.na(air_time)) %>%
+  group_by(tailnum, origin, dest) %>%
+  summarise(
+    count = n(),
+    arr_delay_10_c = sum(arr_delay > 10),  
+    arr_delay_10_p = mean(arr_delay > 10),  
+    dep_delay_10_c = sum(dep_delay > 10),
+    dep_delay_10_p = mean(dep_delay > 10)  
+    ) %>%
+  filter(count > 20) %>%
+  arrange(desc(arr_delay_10_p))
+
+
+flights %>% 
+  filter(!is.na(air_time)) %>%
+  group_by(tailnum, origin, dest) %>% 
+  summarise(count = n(), arr_delay_30 = mean(arr_delay > 30), arr_early_30 = mean(arr_delay < -30)) %>% 
+  filter(count > 30) %>% 
+  arrange(desc(arr_delay_30))
+
+
+flights %>% 
+  filter(!is.na(air_time)) %>%
+  group_by(tailnum) %>%
+  summarise(count = n(), ardelay2 = mean(arr_delay > 120)) %>% 
+  arrange(desc(ardelay2)) %>% 
+  filter(count > 30)
+
+
+not_cancelled %>% count(dest)
+  
+flights %>% 
+  filter(!is.na(air_time)) %>%
+  group_by(dest) %>% 
+  summarise(n = n()) %>% 
+  select(dest, n)
+
+
+
+### Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay?
+
+
+view(flights)
+
+
+flights %>%
+  group_by(year, month, day) %>% 
+  summarise(cancelled = sum(is.na(air_time) | air_time == 0), avg_arrdelay = mean(arr_delay, na.rm = TRUE), avg_depdelay = mean(dep_delay, na.rm = TRUE)) %>% 
+  ggplot(aes(x = avg_depdelay, y = cancelled)) +
+  geom_point(aes(fill = "blue")) +
+  geom_smooth(aes(show.legend = NA), se = FALSE, method = "gam")
+
+
+### Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about flights %>% group_by(carrier, dest) %>% summarise(n()))
+
+flights %>%
+  filter(!is.na(air_time)) %>% 
+  group_by(carrier) %>% 
+  summarise(count= n(), avg_delays = mean(arr_delay), median_delays = median(arr_delay)) %>%
+  filter(count > 1000) %>% 
+  arrange(desc(avg_delays, median_delays))
+
+
+
+
+```
+
+
+
+#### 5.7 Grouped mutates (and filters)
+
+```{r}
+
+flights %>% 
+  group_by(year, month, day) %>%
+  filter(rank(desc(arr_delay)) < 10)
+
+
+popular_dests <- flights %>% 
+  group_by(dest) %>% 
+  filter(n() > 365)
+popular_dests
+
+popular_dests %>% 
+  filter(arr_delay > 0) %>% 
+  mutate(prop_delay = arr_delay / sum(arr_delay)) %>% 
+  select(year:day, dest, arr_delay, prop_delay)
+
+
+```
+
+
+
+
+#### 5.7.1 Exercises
+
+```{r}
+
+flights %>% 
+  filter(!is.na(air_time)) %>% 
+  group_by(tailnum) %>% 
+  summarise(count = n(), max_arr_delay = max(arr_delay, na.rm = TRUE), is_on_time_freq = mean(arr_delay >= 0, na.rm = TRUE)) %>%
+  filter(count > 30) %>% 
+  arrange(is_on_time_freq)
+
+
+
+####3. What time of day should you fly if you want to avoid delays as much as possible?
+
+
+flights %>% 
+  filter(!is.na(air_time)) %>%
+  mutate(dep_time_hour = dep_time %/% 100) %>% 
+  group_by(dep_time_hour) %>% 
+  summarise(count = n(), avg_arr_delay = mean(arr_delay, na.rm = TRUE), is_on_time_prop = mean(arr_delay <= 0)) %>% 
+  filter(count > 30) %>% 
+  arrange(desc(is_on_time_prop))
+
+####For each destination, compute the total minutes of delay. For each flight, compute the proportion of the total delay for its destination.
+
+flights %>% 
+  filter(!is.na(air_time)) %>%
+  group_by(dest) %>%
+  filter(arr_delay > 0) %>% 
+  summarise(count = n(), total_delay = mean(arr_delay, na.rm = TRUE)) %>% 
+  filter(count > 30) %>% 
+  arrange(desc(total_delay))
+
+
+
+flights %>% 
+  filter(!is.na(air_time)) %>%
+  filter(arr_delay > 0) %>% 
+  group_by(flight) %>% 
+  mutate(total_delay = sum(arr_delay)) %>%
+  group_by(flight, dest) %>% 
+  summarise(delay_prop = sum(arr_delay)/mean(total_delay))
+
+
+#### Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). 
+#### Compute the air time of a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?
+
+
+flights %>% 
+  filter(!is.na(air_time)) %>%
+  group_by(dest, air_time) %>% 
+  ggplot() +
+  geom_boxplot(aes(x = dest, y = air_time))
+
+
+not_cancelled %>%
+  group_by(dest) %>%
+  mutate(
+    median = median(air_time),
+    low_outlier_limit = quantile(air_time, 0.25) - 3*(IQR(air_time, na.rm = TRUE))
+  )%>%
+  filter(low_outlier_limit > air_time) %>%
+  select(flight, dest,median,low_outlier_limit, air_time)
+
+
+
+#### Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.
+
+
+flights %>% 
+  filter(!is.na(air_time)) %>% 
+  group_by(dest) %>% 
+  summarise(count = n(), distinct_carrier = n_distinct(carrier, na.rm = TRUE)) %>% 
+  filter(distinct_carrier > 1) %>% 
+  arrange(desc(distinct_carrier))
+
+
+
+```
+
+
+
+#### 7 Exploratory Data Analysis
+
+To do data cleaning, you’ll need to deploy all the tools of EDA: visualisation, transformation, and modelling.
+
+However, two types of questions will always be useful for making discoveries within your data. You can loosely word these questions as:
+
+What type of variation occurs within my variables?
+
+What type of covariation occurs between my variables?
+
+
+```{r}
+
+
+
+library(dplyr)
+library(nycflights13)
+library(tidyverse)
+
+
+#### In R, categorical variables are usually saved as factors or character vectors. To examine the distribution of a categorical variable, use a bar chart:
+
+ggplot(diamonds, aes(x = cut)) +
+  geom_bar()
+
+diamonds %>% 
+  count(cut)
+
+
+
+#### To examine the distribution of a continuous variable, use a histogram
+
+ggplot(diamonds, aes(x = carat)) +
+  geom_histogram(bindwidth = 0.5)
+
+
+diamonds %>% 
+  count(cut_width(carat, 0.5))
+
+
+####### bu bindwidt neden degismiyor ??????????????????????????????????????????????????????????????????????????????
+
+diamonds %>% 
+  filter(carat < 3) %>% 
+  ggplot(aes(x = carat)) +
+  geom_histogram(bindwidth = 10)
+
+smaller <- diamonds %>% 
+  filter(carat < 3)
+  
+ggplot(smaller, aes(x = carat)) +
+  geom_histogram( binwidth = 0.1)
+
+
+#### If you wish to overlay multiple histograms in the same plot, I recommend using geom_freqpoly() instead of geom_histogram().
+
+diamonds %>% 
+  filter(carat < 3) %>% 
+  ggplot(aes(x = carat, colour = cut)) +
+  geom_freqpoly(binwidth = 0.1)
+
+#### look for anything unexpected:
+
+# Which values are the most common? Why?
+
+# Which values are rare? Why? Does that match your expectations?
+
+# Can you see any unusual patterns? What might explain them?
+
+
+ggplot(smaller, aes(x = carat)) +
+  geom_histogram(binwidth = 0.01)
+
+# Clusters of similar values suggest that subgroups exist in your data. To understand the subgroups, ask:
+
+# How are the observations within each cluster similar to each other?
+
+# How are the observations in separate clusters different from each other?
+
+# How can you explain or describe the clusters?
+
+# Why might the appearance of clusters be misleading?
+
+
+ggplot(faithful, aes(x = eruptions)) + 
+  geom_histogram(binwidth = 0.25)
+
+# Eruption times appear to be clustered into two groups: there are short eruptions (of around 2 minutes) and 
+# long eruptions (4-5 minutes), but little in between.
+
+
+```
+
+####   7.3.3 Unusual values
+
+```{r}
+
+#### To make it easy to see the unusual values, we need to zoom to small values of the y-axis with coord_cartesian():
+
+
+ggplot(diamonds, aes(x = y)) +
+  geom_histogram(bindwidth = 0.5) +
+  coord_cartesian(ylim = c(0, 50))
+
+unusual <- diamonds %>% 
+  filter(y < 3 | y > 20) %>% 
+  select(price, x, y, z) %>% 
+  arrange(y)
+
+unusual
+
+
+
+
+
+```
+
+
+7.3.4 Exercises
+
+
+```{r}
+
+
+ggplot(diamonds, aes(x = x)) +
+  geom_histogram(binwidth = 0.5)
+
+ggplot(diamonds, aes(x = y)) +
+  geom_histogram(binwidth = 0.5)
+
+ggplot(diamonds, aes(x = z)) +
+  geom_histogram(binwidth = 0.5)
+
+
+
+diamonds %>% 
+  filter(price > 100) %>% 
+  ggplot(aes(x = price)) +
+  geom_histogram(bins = 500)
+
+
+diamonds %>% 
+  filter(carat == 0.99 |  1.00) %>%
+  count(carat)
+
+
+diamonds %>%
+  filter(carat %in% c(0.99, 1)) %>%
+  count(carat)
+
+
+diamonds %>%
+  ggplot(aes(y)) +
+  geom_histogram() +
+  coord_cartesian(ylim = c(0, 50))
+
+diamonds %>%
+  ggplot(aes(y)) +
+  geom_histogram() +
+  xlim(c(0, 60)) +
+  coord_cartesian(y = c(0, 50))
+
+diamonds %>%
+  ggplot(aes(y)) +
+  geom_histogram(bins = 30) +
+  coord_cartesian(xlim = c(2, 50), ylim = c(0, 50))
+
+```
+
+
+###### 7.4 Missing values
+
+```{r}
+
+
+#### If you’ve encountered unusual values in your dataset, and simply want to move on to the rest of your analysis, you have two options.
+
+# 1. Drop the entire row with the strange values:
+
+# 2. Instead, I recommend replacing the unusual values with missing values. The easiest way to do this is to use mutate() to replace the variable with a modified copy. You can use the ifelse() function to replace unusual values with NA:
+
+diamonds2 <- diamonds %>% 
+  mutate(y = ifelse(y < 3 | y > 20, NA, y))
+
+# alternative to ifelse <- case_when()
+
+diamonds2
+
+ggplot(diamonds2, aes(x, y)) +
+  geom_point(na.rm = TRUE)
+
+library("nycflights13")
+
+
+flights %>% 
+  mutate(cancelled = is.na(dep_time),
+         sched_hour = sched_dep_time %/% 100,
+         sched_min = sched_dep_time %% 100,
+         sched_dep_time = sched_hour + sched_min / 60) %>% 
+  ggplot(aes(x = sched_dep_time)) +
+  geom_freqpoly(aes(colour = cancelled), binwidth = 1/4)
+
+fl <- flights %>% 
+  mutate(cancelled = is.na(dep_time),
+         sched_hour = sched_dep_time %/% 100,
+         sched_min = sched_dep_time %% 100,
+         sched_dep_time = sched_hour + sched_min / 60)
+
+
+fl %>%
+  ggplot(aes(sched_dep_time, ..density.., colour = cancelled)) +
+  geom_freqpoly(binwidth = 1/2)
+
+fl %>%
+  ggplot(aes(cancelled, sched_dep_time)) +
+  geom_boxplot()
+
+```
+
+
+#### 7.4.1 Exercises
+
+```{r}
+
+library(tidyverse)
+
+sum(is.na(diamonds$price))
+
+ggplot(flights, aes(dep_time)) +
+  geom_histogram(fill = "red" , bins = 30)
+
+diamonds %>%
+  ggplot(aes(price)) +
+  geom_histogram(bins = 1000)
+
+```
+
+
+
+#### 7.5 Covariation
+
+```{r}
+
+
+
+ggplot(diamonds, aes(price)) +
+  geom_freqpoly(aes(colour = cut), binwidth = 500)
+
+#### Instead of displaying count, we’ll display density, which is the count standardised so that the area under each frequency polygon is one.
+
+ggplot(diamonds, aes(x = price, y = ..density..)) + 
+  geom_freqpoly(aes(colour = cut), binwidth = 500)
+
+ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
+  geom_boxplot()
+
+# Many categorical variables don’t have such an intrinsic order, so you might want to reorder them to make a more informative display. 
+# One way to do that is with the reorder() function.
+
+ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
+  geom_boxplot()
+
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = reorder(class, hwy, FUN = median), y = hwy))
+
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = reorder(class, hwy, FUN = median), y = hwy)) +
+  coord_flip()
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
